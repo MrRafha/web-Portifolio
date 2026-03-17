@@ -6,7 +6,7 @@ export const profile: Profile = {
   headline:
     "Construo interfaces modernas e produtos web com foco em utilidade real, identidade visual e evolucao continua.",
   description:
-    "Sou estudante de ADS com foco em frontend e experiencia de produto. Trabalho principalmente com React, Next.js, TypeScript, Prisma e NeonDB, criando solucoes para projetos reais, comunidades digitais e aplicacoes com base solida para crescer.",
+    "Sou estudante de ADS com foco em frontend e experiencia de produto. Trabalho principalmente com React, Next.js, TypeScript, Prisma e Postgres, criando solucoes para projetos reais, comunidades digitais e aplicacoes com base solida para crescer.",
   email: "Hanryrafhael@gmail.com",
   github: "https://github.com/MrRafha",
   linkedin: "https://www.linkedin.com/in/rafhael-hanry-1b998126b/",
@@ -24,7 +24,7 @@ export const projects: Project[] = [
     title: "Ultimate Tracker",
     category: "Projeto principal",
     description:
-      "Plataforma voltada para organizacao, rastreamento e suporte a comunidades, com foco em usabilidade, clareza visual e visao de produto escalavel.",
+      "Plataforma voltada para organizacao, rastreamento e suporte a comunidades dentro do universo de Albion Online, com foco em usabilidade, clareza visual e visao de produto escalavel.",
     stack: ["Next.js", "TypeScript", "Prisma", "NeonDB", "Tailwind CSS"],
     highlights: ["Arquitetura modular", "Evolucao orientada por roadmap", "Base pronta para escala"],
     gallery: [

@@ -62,7 +62,7 @@ export function HeroSection() {
         <div>
           <div className="inline-flex items-center gap-2 rounded-full border border-indigo-400/25 bg-indigo-500/10 px-4 py-2 text-sm text-indigo-100">
             <span className="h-2 w-2 rounded-full bg-indigo-300" />
-            {profile.role} com foco em produto
+            {profile.role} com foco em produtos
           </div>
 
           <div className="relative mt-6 min-h-[10rem] sm:min-h-[12rem] lg:min-h-[13rem]">
@@ -132,7 +132,7 @@ export function HeroSection() {
                   </div>
                   <div className="rounded-xl border border-white/10 bg-white/5 p-3">
                     <p className="text-xs uppercase tracking-wide text-slate-400">Especialidade</p>
-                    <p className="mt-1 text-sm font-medium text-white">Interfaces modernas</p>
+                    <p className="mt-1 text-sm font-medium text-white">Interfaces modernas & Chat bots</p>
                   </div>
                 </div>
               </div>

@@ -66,6 +66,7 @@ export function ProjectsSection() {
             style={{
               scrollBehavior: "smooth",
               scrollbarWidth: "thin",
+              overscrollBehaviorX: "contain",
             }}
           >
             {projects.map((project, index) => (

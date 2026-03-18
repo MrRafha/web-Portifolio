@@ -21,9 +21,22 @@ export function HeroSection() {
     let lastProgress = -1;
 
     function applyProgress() {
-      const maxRange = window.innerHeight * 0.65;
+      const maxRange = window.innerHeight * 0.35;
       const raw = clamp(window.scrollY / maxRange, 0, 1);
-      const next = easeOutCubic(raw);
+
+      // Adiciona um "gatilho" que acelera a animação quando o usuário começa a scrollar
+      let next;
+      if (raw > 0.2) {
+        // Quando passa de 20%, acelera a transição
+        const adjustedProgress = (raw - 0.2) / 0.8;
+        next = 0.2 + easeOutCubic(adjustedProgress) * 0.8;
+      } else {
+        // Nos primeiros 20%, mantém a progressão normal
+        next = easeOutCubic(raw * 5) * 0.2;
+      }
+
+      next = clamp(next, 0, 1);
+
       if (Math.abs(next - lastProgress) > 0.008) {
         lastProgress = next;
         setProgress(next);

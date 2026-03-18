@@ -1,0 +1,2 @@
+MAIN=start.sh
+MEMORY=512

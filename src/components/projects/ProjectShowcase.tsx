@@ -43,13 +43,13 @@ export function ProjectShowcase({ project, index, isActive, flowProgress, isCaro
 
   return (
     <article
-      className={`rounded-[34px] border border-white/10 bg-white/5 p-6 backdrop-blur transition-all duration-700 ${glow} lg:p-8 min-h-[550px]`}
+      className={`rounded-[28px] border border-white/10 bg-white/5 p-4 backdrop-blur transition-all duration-700 ${glow} lg:p-5 min-h-[420px]`}
       style={{
         opacity: motionOpacity,
         transform: `translateY(${motionY}px) scale(${motionScale})`,
       }}
     >
-      <div className="grid gap-7 lg:grid-cols-[0.95fr_1.05fr] h-full">
+      <div className="grid gap-5 lg:grid-cols-[0.95fr_1.05fr] h-full">
         <div className="flex flex-col justify-between">
           <div className="flex items-center justify-between gap-3">
             <p className="text-sm font-medium text-indigo-300">{project.category}</p>
@@ -60,10 +60,10 @@ export function ProjectShowcase({ project, index, isActive, flowProgress, isCaro
             ) : null}
           </div>
 
-          <h3 className="mt-3 text-3xl font-semibold text-white sm:text-4xl">{project.title}</h3>
-          <p className="mt-5 text-base leading-8 text-slate-300">{project.description}</p>
+          <h3 className="mt-3 text-xl font-semibold text-white sm:text-2xl">{project.title}</h3>
+          <p className="mt-3 text-sm leading-6 text-slate-300">{project.description}</p>
 
-          <div className="mt-6 flex flex-wrap gap-2">
+          <div className="mt-4 flex flex-wrap gap-2">
             {project.stack.map((item) => (
               <span
                 key={item}
@@ -74,15 +74,15 @@ export function ProjectShowcase({ project, index, isActive, flowProgress, isCaro
             ))}
           </div>
 
-          <div className="mt-7 grid gap-3 sm:grid-cols-3">
+          <div className="mt-4 grid gap-2 sm:grid-cols-3">
             {project.highlights.map((highlight) => (
-              <div key={highlight} className="rounded-2xl border border-white/10 bg-slate-950/60 p-3">
-                <p className="text-sm font-medium text-white">{highlight}</p>
+              <div key={highlight} className="rounded-xl border border-white/10 bg-slate-950/60 p-2">
+                <p className="text-xs font-medium text-white">{highlight}</p>
               </div>
             ))}
           </div>
 
-          <div className="mt-7 flex flex-wrap gap-3">
+          <div className="mt-4 flex flex-wrap gap-2">
             {project.href ? (
               <a
                 href={project.href}
@@ -106,8 +106,8 @@ export function ProjectShowcase({ project, index, isActive, flowProgress, isCaro
           </div>
         </div>
 
-        <div className="rounded-[30px] border border-white/10 bg-[#0f0f18]/78 p-4 transition-all duration-700" style={{ transform: `scale(${isActive ? 1 : 0.99})` }}>
-          <div className="mb-4 flex items-center justify-between gap-3">
+        <div className="rounded-[24px] border border-white/10 bg-[#0f0f18]/78 p-2.5 transition-all duration-700" style={{ transform: `scale(${isActive ? 1 : 0.99})` }}>
+          <div className="mb-2 flex items-center justify-between gap-2">
             <div>
               <p className="text-xs uppercase tracking-[0.22em] text-indigo-300">Galeria</p>
               <p className="mt-1 text-sm text-slate-300">
@@ -134,9 +134,9 @@ export function ProjectShowcase({ project, index, isActive, flowProgress, isCaro
             </div>
           </div>
 
-          <div className={`rounded-2xl border border-white/10 bg-gradient-to-br ${gradient} p-5`}>
+          <div className={`rounded-xl border border-white/10 bg-gradient-to-br ${gradient} p-3`}>
             <div
-              className="relative w-full h-56 rounded-xl overflow-hidden border border-white/10 bg-[#0b0b12]/72 mb-4 cursor-pointer group"
+              className="relative w-full h-40 rounded-lg overflow-hidden border border-white/10 bg-[#0b0b12]/72 mb-2 cursor-pointer group"
               onClick={() => setImageModal(true)}
             >
               <Image
@@ -152,14 +152,14 @@ export function ProjectShowcase({ project, index, isActive, flowProgress, isCaro
                 </svg>
               </div>
             </div>
-            <div className="rounded-xl border border-white/10 bg-[#0b0b12]/72 p-5">
-              <p className="text-xs uppercase tracking-[0.2em] text-indigo-300">Preview</p>
-              <h4 className="mt-2 text-2xl font-semibold text-white">{currentSlide.title}</h4>
-              <p className="mt-3 text-sm leading-7 text-slate-300">{currentSlide.caption}</p>
+            <div className="rounded-lg border border-white/10 bg-[#0b0b12]/72 p-3">
+              <p className="text-xs uppercase tracking-[0.18em] text-indigo-300">Preview</p>
+              <h4 className="mt-1.5 text-lg font-semibold text-white">{currentSlide.title}</h4>
+              <p className="mt-1.5 text-xs leading-5 text-slate-300">{currentSlide.caption}</p>
             </div>
           </div>
 
-          <div className="mt-4 flex gap-2">
+          <div className="mt-2 flex gap-1.5">
             {project.gallery.map((slide, slideIndex) => (
               <button
                 key={slide.title}

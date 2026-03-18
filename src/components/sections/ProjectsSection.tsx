@@ -62,19 +62,14 @@ export function ProjectsSection() {
         <div className="mt-12 relative">
           <div
             ref={containerRef}
-            className="flex gap-6 overflow-x-auto pb-4 snap-x snap-mandatory scroll-smooth"
-            style={{
-              scrollBehavior: "smooth",
-              scrollbarWidth: "thin",
-              overscrollBehaviorX: "contain",
-            }}
+            className="flex gap-6 overflow-x-auto pb-4 snap-x snap-mandatory scroll-smooth hide-scrollbar"
           >
             {projects.map((project, index) => (
               <div
                 key={project.title}
                 className="flex-shrink-0 w-full snap-start md:w-150 lg:w-180"
                 style={{
-                  minWidth: "min(100%, 900px)",
+                  minWidth: "min(100%, 650px)",
                 }}
                 aria-label={project.title}
               >
@@ -93,7 +88,7 @@ export function ProjectsSection() {
           <button
             type="button"
             onClick={() => scroll("left")}
-            className="hidden lg:flex absolute left-0 top-1/2 -translate-y-1/2 -translate-x-16 rounded-full border border-white/20 bg-white/10 p-3 text-white transition hover:bg-white/20 hover:border-white/40 z-10"
+            className="hidden xl:flex absolute -left-2 top-1/2 -translate-y-1/2 -translate-x-full rounded-full border border-white/20 bg-white/10 p-3 text-white transition hover:bg-white/20 hover:border-white/40 z-10"
             aria-label="Scroll projetos para esquerda"
           >
             <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -104,7 +99,7 @@ export function ProjectsSection() {
           <button
             type="button"
             onClick={() => scroll("right")}
-            className="hidden lg:flex absolute right-0 top-1/2 -translate-y-1/2 translate-x-16 rounded-full border border-white/20 bg-white/10 p-3 text-white transition hover:bg-white/20 hover:border-white/40 z-10"
+            className="hidden xl:flex absolute -right-2 top-1/2 -translate-y-1/2 translate-x-full rounded-full border border-white/20 bg-white/10 p-3 text-white transition hover:bg-white/20 hover:border-white/40 z-10"
             aria-label="Scroll projetos para direita"
           >
             <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

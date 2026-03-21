@@ -44,7 +44,7 @@ export const projects: Project[] = [
         image: "/projects/ultimate-tracker/03.png",
       },
     ],
-    href: "https://www.ultimatetracker.com",
+    href: "https://www.ultimatetracker.xyz/",
     repo: "https://github.com/MrRafha",
     featured: true,
   },

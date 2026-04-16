@@ -19,6 +19,7 @@ export type TechGroup = {
   summary: string;
   focus: string;
   items: string[];
+  proficiency: number; // 0–100
 };
 
 export type Profile = {

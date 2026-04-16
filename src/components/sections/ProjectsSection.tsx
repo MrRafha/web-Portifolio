@@ -4,59 +4,75 @@ import { useEffect, useRef, useState } from "react";
 import { ProjectShowcase } from "@/components/projects/ProjectShowcase";
 import { projects } from "@/data/portfolio";
 
-type ScrollDirection = "down" | "up";
-
-type SectionSignalDetail = {
-  activeSection: string;
-  nextSection: string | null;
-  direction: ScrollDirection;
-  progress: number;
-};
-
 export function ProjectsSection() {
   const [isInView, setIsInView] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
 
   function scroll(direction: "left" | "right") {
     const container = containerRef.current;
     if (!container) return;
-
-    const scrollAmount = 400;
-    container.scrollBy({
-      left: direction === "left" ? -scrollAmount : scrollAmount,
-      behavior: "smooth",
-    });
+    container.scrollBy({ left: direction === "left" ? -500 : 500, behavior: "smooth" });
   }
 
+  function scrollToIndex(index: number) {
+    const container = containerRef.current;
+    if (!container) return;
+    const child = container.children[index] as HTMLElement;
+    child?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+  }
+
+  // Seção em view via evento do SectionFlowTracker
   useEffect(() => {
     function onSectionSignal(event: Event) {
-      const customEvent = event as CustomEvent<SectionSignalDetail>;
-      const detail = customEvent.detail;
+      const detail = (event as CustomEvent).detail;
       if (!detail) return;
-
-      if (detail.activeSection === "projetos") {
-        setIsInView(true);
-        return;
-      }
-
-      if (detail.activeSection === "stack" || detail.activeSection === "contato") {
-        setIsInView(false);
-      }
+      if (detail.activeSection === "projetos") setIsInView(true);
+      else if (detail.activeSection === "stack" || detail.activeSection === "contato") setIsInView(false);
     }
-
     window.addEventListener("portfolio:section-signal", onSectionSignal as EventListener);
+    return () => window.removeEventListener("portfolio:section-signal", onSectionSignal as EventListener);
+  }, []);
 
-    return () => {
-      window.removeEventListener("portfolio:section-signal", onSectionSignal as EventListener);
-    };
+  // IntersectionObserver para rastrear slide visível e atualizar dots
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            const idx = Array.from(container.children).indexOf(entry.target as HTMLElement);
+            if (idx !== -1) setActiveIndex(idx);
+          }
+        }
+      },
+      { root: container, threshold: 0.5 }
+    );
+
+    Array.from(container.children).forEach((child) => observer.observe(child));
+    return () => observer.disconnect();
   }, []);
 
   return (
-    <section data-flow-key="projetos" data-flow-section className="w-full px-6 py-8 sm:px-8 lg:px-10">
+    <section data-flow-key="projetos" className="w-full px-6 py-8 sm:px-8 lg:px-10">
       <div className="mx-auto max-w-7xl">
-        <div className="mx-auto max-w-3xl text-center">
-          <p className="text-sm font-medium uppercase tracking-[0.24em] text-indigo-300">Projetos</p>
-          <h2 className="mt-3 text-3xl font-semibold text-white sm:text-4xl">Alguns projetos</h2>
+        <div className="mx-auto max-w-3xl text-center flex items-center justify-center gap-4">
+          <div>
+            <p className="text-sm font-medium uppercase tracking-[0.24em]" style={{ color: "var(--accent-soft)" }}>
+              Projetos
+            </p>
+            <h2 className="mt-3 text-3xl font-bold sm:text-4xl" style={{ color: "var(--foreground)" }}>
+              Alguns projetos
+            </h2>
+          </div>
+          <span
+            className="self-end pb-1 text-sm font-mono"
+            style={{ color: "var(--foreground-subtle)" }}
+          >
+            {String(activeIndex + 1).padStart(2, "0")} / {String(projects.length).padStart(2, "0")}
+          </span>
         </div>
 
         <div className="mt-12 relative">
@@ -67,10 +83,8 @@ export function ProjectsSection() {
             {projects.map((project, index) => (
               <div
                 key={project.title}
-                className="flex-shrink-0 w-full snap-start md:w-150 lg:w-180"
-                style={{
-                  minWidth: "min(100%, 650px)",
-                }}
+                className="flex-shrink-0 w-full snap-start"
+                style={{ minWidth: "min(100%, 650px)" }}
                 aria-label={project.title}
               >
                 <ProjectShowcase
@@ -84,11 +98,17 @@ export function ProjectsSection() {
             ))}
           </div>
 
-          {/* Botões flutuantes */}
+          {/* Botões laterais — visíveis a partir de lg (sem gap) */}
           <button
             type="button"
             onClick={() => scroll("left")}
-            className="hidden xl:flex absolute -left-2 top-1/2 -translate-y-1/2 -translate-x-full rounded-full border border-white/20 bg-white/10 p-3 text-white transition hover:bg-white/20 hover:border-white/40 z-10"
+            className="hidden lg:flex absolute -left-2 top-1/2 -translate-y-1/2 -translate-x-full rounded-full p-3 transition-all duration-200 hover:scale-110 z-10"
+            style={{
+              border: "1px solid var(--border-strong)",
+              background: "var(--background-elevated)",
+              color: "var(--foreground)",
+              boxShadow: "var(--shadow-card)",
+            }}
             aria-label="Scroll projetos para esquerda"
           >
             <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -99,7 +119,13 @@ export function ProjectsSection() {
           <button
             type="button"
             onClick={() => scroll("right")}
-            className="hidden xl:flex absolute -right-2 top-1/2 -translate-y-1/2 translate-x-full rounded-full border border-white/20 bg-white/10 p-3 text-white transition hover:bg-white/20 hover:border-white/40 z-10"
+            className="hidden lg:flex absolute -right-2 top-1/2 -translate-y-1/2 translate-x-full rounded-full p-3 transition-all duration-200 hover:scale-110 z-10"
+            style={{
+              border: "1px solid var(--border-strong)",
+              background: "var(--background-elevated)",
+              color: "var(--foreground)",
+              boxShadow: "var(--shadow-card)",
+            }}
             aria-label="Scroll projetos para direita"
           >
             <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -107,12 +133,17 @@ export function ProjectsSection() {
             </svg>
           </button>
 
-          {/* Botões para mobile */}
+          {/* Botões mobile */}
           <div className="mt-4 flex lg:hidden justify-center gap-2 mb-4">
             <button
               type="button"
               onClick={() => scroll("left")}
-              className="rounded-lg border border-white/20 bg-white/10 p-2 text-white transition hover:bg-white/20 hover:border-white/40"
+              className="rounded-lg p-2 transition-all duration-200 hover:scale-110"
+              style={{
+                border: "1px solid var(--border-strong)",
+                background: "var(--background-elevated)",
+                color: "var(--foreground)",
+              }}
               aria-label="Scroll projetos para esquerda"
             >
               <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -122,7 +153,12 @@ export function ProjectsSection() {
             <button
               type="button"
               onClick={() => scroll("right")}
-              className="rounded-lg border border-white/20 bg-white/10 p-2 text-white transition hover:bg-white/20 hover:border-white/40"
+              className="rounded-lg p-2 transition-all duration-200 hover:scale-110"
+              style={{
+                border: "1px solid var(--border-strong)",
+                background: "var(--background-elevated)",
+                color: "var(--foreground)",
+              }}
               aria-label="Scroll projetos para direita"
             >
               <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -131,21 +167,19 @@ export function ProjectsSection() {
             </button>
           </div>
 
+          {/* Dots — estado ativo rastreado pelo IntersectionObserver */}
           <div className="mt-4 flex justify-center gap-2">
-            {projects.map((_, index) => (
+            {projects.map((_, idx) => (
               <button
-                key={index}
+                key={idx}
                 type="button"
-                onClick={() => {
-                  const element = containerRef.current?.children[index] as HTMLElement;
-                  element?.scrollIntoView({
-                    behavior: "smooth",
-                    block: "nearest",
-                    inline: "center",
-                  });
+                onClick={() => scrollToIndex(idx)}
+                className="h-2.5 rounded-full transition-all duration-300"
+                style={{
+                  width: idx === activeIndex ? "2rem" : "0.625rem",
+                  background: idx === activeIndex ? "var(--accent-soft)" : "var(--border-strong)",
                 }}
-                className="h-2 rounded-full transition bg-white/30 hover:bg-white/50 w-2"
-                aria-label={`Ir para projeto ${index + 1}`}
+                aria-label={`Ir para projeto ${idx + 1}`}
               />
             ))}
           </div>

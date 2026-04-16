@@ -4,10 +4,10 @@ export const profile: Profile = {
   name: "Rafhael Hanry",
   role: "Desenvolvedor Frontend",
   headline:
-    "Construo interfaces modernas e produtos web com foco em utilidade real, identidade visual e evolucao continua.",
+    "Construo interfaces modernas e produtos web com foco em utilidade real, identidade visual e evolução contínua.",
   description:
-    "Sou estudante de ADS com foco em frontend e experiencia de produto. Trabalho principalmente com React, Next.js, TypeScript, Prisma e Postgres, criando solucoes para projetos reais, comunidades digitais e aplicacoes com base solida para crescer.",
-  email: "Hanryrafhael@gmail.com",
+    "Sou estudante de ADS com foco em frontend e experiência de produto. Trabalho principalmente com React, Next.js, TypeScript, Prisma e Postgres, criando soluções para projetos reais, comunidades digitais e aplicações com base sólida para crescer.",
+  email: "hanryrafhael@gmail.com",
   github: "https://github.com/MrRafha",
   linkedin: "https://www.linkedin.com/in/rafhael-hanry-1b998126b/",
 };
@@ -24,23 +24,23 @@ export const projects: Project[] = [
     title: "Ultimate Tracker",
     category: "Projeto principal",
     description:
-      "Plataforma voltada para organizacao, rastreamento e suporte a comunidades dentro do universo de Albion Online, com foco em usabilidade, clareza visual e visao de produto escalavel.",
+      "Plataforma voltada para organização, rastreamento e suporte a comunidades dentro do universo de Albion Online, com foco em usabilidade, clareza visual e visão de produto escalável.",
     stack: ["Next.js", "TypeScript", "Prisma", "NeonDB", "Tailwind CSS"],
-    highlights: ["Arquitetura modular", "Evolucao orientada por roadmap", "Base pronta para escala"],
+    highlights: ["Arquitetura modular", "Evolução orientada por roadmap", "Base pronta para escala"],
     gallery: [
       {
-        title: "Visao geral",
-        caption: "Painel com foco em leitura rapida, status claros e navegacao objetiva.",
+        title: "Visão geral",
+        caption: "Painel com foco em leitura rápida, status claros e navegação objetiva.",
         image: "/projects/ultimate-tracker/01.png",
       },
       {
         title: "Fluxo de comunidade",
-        caption: "Jornada pensada para suporte continuo e organizacao de informacoes.",
+        caption: "Jornada pensada para suporte contínuo e organização de informações.",
         image: "/projects/ultimate-tracker/02.png",
       },
       {
         title: "Escalabilidade",
-        caption: "Estrutura preparada para novas features sem comprometer consistencia visual.",
+        caption: "Estrutura preparada para novas features sem comprometer consistência visual.",
         image: "/projects/ultimate-tracker/03.png",
       },
     ],
@@ -52,23 +52,23 @@ export const projects: Project[] = [
     title: "Projeto IFala",
     category: "Projeto colaborativo",
     description:
-      "Projeto com foco em frontend e construcao de interfaces, destacando colaboracao em equipe, organizacao visual e desenvolvimento com proposito pratico.",
+      "Projeto com foco em frontend e construção de interfaces, destacando colaboração em equipe, organização visual e desenvolvimento com propósito prático.",
     stack: ["React", "TypeScript", "CSS", "Frontend"],
-    highlights: ["Colaboracao em equipe", "Padrao visual consistente", "Entrega incremental"],
+    highlights: ["Colaboração em equipe", "Padrão visual consistente", "Entrega incremental"],
     gallery: [
       {
         title: "Interface principal",
-        caption: "Tela principal com hierarquia visual e blocos de conteudo bem definidos.",
+        caption: "Tela principal com hierarquia visual e blocos de conteúdo bem definidos.",
         image: "/projects/ifala/01.png",
       },
       {
         title: "Componente colaborativo",
-        caption: "Componentes reutilizaveis para acelerar iteracoes e manutencao.",
+        caption: "Componentes reutilizáveis para acelerar iterações e manutenção.",
         image: "/projects/ifala/02.png",
       },
       {
-        title: "Experiencia final",
-        caption: "Navegacao fluida com foco em produtividade e clareza para o usuario.",
+        title: "Experiência final",
+        caption: "Navegação fluida com foco em produtividade e clareza para o usuário.",
         image: "/projects/ifala/03.png",
       },
     ],
@@ -79,23 +79,23 @@ export const projects: Project[] = [
     title: "Hello Kitty Water Reminder",
     category: "Aplicativo mobile",
     description:
-      "Aplicacao mobile tematica com foco em engajamento, consistencia visual e experiencia do usuario, mostrando versatilidade alem do ecossistema web.",
+      "Aplicação mobile temática com foco em engajamento, consistência visual e experiência do usuário, mostrando versatilidade além do ecossistema web.",
     stack: ["Flutter", "Dart", "Mobile UI"],
-    highlights: ["Design tematico", "Experiencia mobile", "Interacao recorrente"],
+    highlights: ["Design temático", "Experiência mobile", "Interação recorrente"],
     gallery: [
       {
         title: "Tela inicial",
-        caption: "Apresentacao visual marcante para reforcar identidade e carisma.",
+        caption: "Apresentação visual marcante para reforçar identidade e carisma.",
         image: "/projects/hello-kitty/01.png",
       },
       {
         title: "Fluxo de lembrete",
-        caption: "Interacoes simples e diretas para estimular uso diario.",
+        caption: "Interações simples e diretas para estimular uso diário.",
         image: "/projects/hello-kitty/02.png",
       },
       {
         title: "Componentes visuais",
-        caption: "Biblioteca de elementos mobile com consistencia de estilo.",
+        caption: "Biblioteca de elementos mobile com consistência de estilo.",
         image: "/projects/hello-kitty/03.png",
       },
     ],
@@ -103,25 +103,25 @@ export const projects: Project[] = [
   },
   {
     title: "Bots e ferramentas para comunidade",
-    category: "Automacao",
+    category: "Automação",
     description:
-      "Solucoes para organizacao de eventos, controle interno e automacoes uteis para grupos e servidores, com foco em confiabilidade e praticidade.",
+      "Soluções para organização de eventos, controle interno e automações úteis para grupos e servidores, com foco em confiabilidade e praticidade.",
     stack: ["Python", "Discord", "SQLite", "APIs"],
-    highlights: ["Automacao util", "Confiabilidade operacional", "Suporte a comunidade"],
+    highlights: ["Automação útil", "Confiabilidade operacional", "Suporte à comunidade"],
     gallery: [
       {
         title: "Painel de comandos",
-        caption: "Fluxo de comandos para rotina de moderacao e gestao de eventos.",
+        caption: "Fluxo de comandos para rotina de moderação e gestão de eventos.",
         image: "/projects/bots/01.png",
       },
       {
-        title: "Integracoes",
-        caption: "Conexao com APIs e rotinas automatizadas para operacao continua.",
+        title: "Integrações",
+        caption: "Conexão com APIs e rotinas automatizadas para operação contínua.",
         image: "/projects/bots/02.png",
       },
       {
         title: "Monitoramento",
-        caption: "Visibilidade de status e resposta rapida para operacoes do dia a dia.",
+        caption: "Visibilidade de status e resposta rápida para operações do dia a dia.",
         image: "/projects/bots/03.png",
       },
     ],
@@ -132,26 +132,30 @@ export const projects: Project[] = [
 export const techGroups: TechGroup[] = [
   {
     title: "Frontend",
-    summary: "Interfaces performaticas com foco em clareza, consistencia visual e experiencia de uso.",
+    summary: "Interfaces performáticas com foco em clareza, consistência visual e experiência de uso.",
     focus: "Produto e UI",
+    proficiency: 92,
     items: ["React", "Next.js", "TypeScript", "Tailwind CSS", "shadcn/ui"],
   },
   {
     title: "Backend & Dados",
-    summary: "Estruturas para autenticacao, modelagem e persistencia voltadas para evolucao continua.",
+    summary: "Estruturas para autenticação, modelagem e persistência voltadas para evolução contínua.",
     focus: "Escalabilidade",
+    proficiency: 72,
     items: ["Node.js", "Prisma", "NeonDB", "SQLite"],
   },
   {
     title: "Ferramentas",
     summary: "Fluxo de entrega com versionamento, deploy e empacotamento para ambientes reais.",
-    focus: "Entrega continua",
+    focus: "Entrega contínua",
+    proficiency: 85,
     items: ["Git", "GitHub", "Docker", "Vercel"],
   },
   {
     title: "Extras",
-    summary: "Base complementar para projetos mobile, automacao e logica em diferentes contextos.",
+    summary: "Base complementar para projetos mobile, automação e lógica em diferentes contextos.",
     focus: "Versatilidade",
+    proficiency: 58,
     items: ["Flutter", "Java", "Python"],
   },
 ];

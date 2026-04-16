@@ -4,19 +4,25 @@ type SectionTitleProps = {
   description?: string;
 };
 
-export function SectionTitle({
-  eyebrow,
-  title,
-  description,
-}: SectionTitleProps) {
+export function SectionTitle({ eyebrow, title, description }: SectionTitleProps) {
   return (
     <div className="max-w-3xl">
-      <p className="text-xs font-medium uppercase tracking-[0.2em] text-indigo-300">
+      <p
+        className="text-xs font-medium uppercase tracking-[0.24em]"
+        style={{ color: "var(--accent-soft)" }}
+      >
         {eyebrow}
       </p>
-      <h2 className="mt-2.5 text-2xl font-semibold text-white sm:text-3xl">{title}</h2>
+      <h2
+        className="mt-2.5 text-2xl font-bold sm:text-3xl"
+        style={{ color: "var(--foreground)" }}
+      >
+        {title}
+      </h2>
       {description ? (
-        <p className="mt-3 text-sm leading-6 text-slate-300">{description}</p>
+        <p className="mt-3 text-sm leading-6" style={{ color: "var(--foreground-muted)" }}>
+          {description}
+        </p>
       ) : null}
     </div>
   );

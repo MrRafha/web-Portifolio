@@ -11,14 +11,14 @@ const contactOptions = [
   },
   {
     title: "LinkedIn",
-    description: "Conexao profissional e networking de produto e frontend.",
+    description: "Conexão profissional e networking de produto e frontend.",
     href: profile.linkedin,
     label: "Perfil no LinkedIn",
     cta: "Abrir LinkedIn",
   },
   {
     title: "GitHub",
-    description: "Repositorios, projetos ativos e historico de evolucao.",
+    description: "Repositórios, projetos ativos e histórico de evolução.",
     href: profile.github,
     label: "Perfil no GitHub",
     cta: "Ver GitHub",
@@ -28,32 +28,79 @@ const contactOptions = [
 export function ContactSection() {
   return (
     <section className="mx-auto w-full max-w-7xl px-6 py-8 pb-14 sm:px-8 lg:px-10">
-      <div className="rounded-[36px] border border-white/10 bg-gradient-to-r from-indigo-600/16 via-[#101018]/88 to-indigo-400/12 p-6 sm:p-8">
+      <div
+        className="rounded-[36px] p-6 sm:p-8"
+        style={{
+          border: "1px solid var(--border)",
+          background:
+            "linear-gradient(135deg, var(--accent-bg) 0%, var(--background-elevated) 50%, var(--accent-bg) 100%)",
+        }}
+      >
         <SectionTitle
           eyebrow="Contato"
-          title="Vamos construir algo util juntos"
-          description="Escolha o canal que fizer mais sentido para conversarmos sobre projeto, colaboracao ou oportunidade de trabalho."
+          title="Vamos construir algo útil juntos"
+          description="Escolha o canal que fizer mais sentido para conversarmos sobre projeto, colaboração ou oportunidade de trabalho."
         />
 
         <div className="mt-8 grid gap-4 md:grid-cols-3">
           {contactOptions.map((option) => (
             <article
               key={option.title}
-              className="rounded-3xl border border-white/10 bg-[#0f0f18]/75 p-5 backdrop-blur"
+              aria-labelledby={`contact-${option.title}`}
+              className="rounded-3xl p-5 backdrop-blur transition-all duration-300 hover:scale-[1.02]"
+              style={{
+                border: "1px solid var(--border)",
+                background: "var(--glass-bg)",
+                boxShadow: "var(--shadow-card)",
+              }}
             >
-              <p className="text-xs uppercase tracking-[0.2em] text-indigo-300">{option.title}</p>
-              <p className="mt-3 text-sm leading-6 text-slate-300">{option.description}</p>
-              <p className="mt-4 text-sm font-medium text-white">{option.label}</p>
+              <p
+                id={`contact-${option.title}`}
+                className="text-xs uppercase tracking-[0.2em]"
+                style={{ color: "var(--accent-soft)" }}
+              >
+                {option.title}
+              </p>
+              <p className="mt-3 text-sm leading-6" style={{ color: "var(--foreground-muted)" }}>
+                {option.description}
+              </p>
+              <p className="mt-4 text-sm font-medium" style={{ color: "var(--foreground)" }}>
+                {option.label}
+              </p>
               <a
                 href={option.href}
                 target={option.href.startsWith("mailto:") ? undefined : "_blank"}
                 rel={option.href.startsWith("mailto:") ? undefined : "noreferrer"}
-                className="mt-5 inline-flex rounded-xl border border-indigo-400/25 bg-indigo-500/14 px-4 py-2 text-sm font-medium text-indigo-50 transition hover:bg-indigo-500/22"
+                className="mt-5 inline-flex rounded-xl px-4 py-2 text-sm font-medium transition-all duration-200 hover:scale-[1.04]"
+                style={{
+                  border: "1px solid var(--border-accent)",
+                  background: "var(--accent-bg)",
+                  color: "var(--accent)",
+                }}
               >
                 {option.cta}
               </a>
             </article>
           ))}
+        </div>
+
+        {/* Rodapé técnico */}
+        <div
+          className="mt-8 pt-5 flex flex-wrap items-center justify-between gap-2"
+          style={{ borderTop: "1px solid var(--border)" }}
+        >
+          <p className="text-xs" style={{ color: "var(--foreground-subtle)" }}>
+            Portfolio feito com Next.js 14 + Tailwind CSS
+          </p>
+          <a
+            href={profile.github}
+            target="_blank"
+            rel="noreferrer"
+            className="text-xs transition-opacity hover:opacity-70"
+            style={{ color: "var(--accent-soft)" }}
+          >
+            Ver repositório
+          </a>
         </div>
       </div>
     </section>

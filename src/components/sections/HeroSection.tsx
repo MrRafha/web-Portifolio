@@ -21,7 +21,7 @@ export function HeroSection() {
     let lastProgress = -1;
 
     function applyProgress() {
-      const maxRange = window.innerHeight * 0.4;
+      const maxRange = window.innerHeight * 0.25;
       const raw = clamp(window.scrollY / maxRange, 0, 1);
 
       let next;
@@ -106,7 +106,7 @@ export function HeroSection() {
 
           <div className="relative mt-6 min-h-[8rem] sm:min-h-[9rem] lg:min-h-[10rem]">
             <h1
-              className="max-w-3xl text-2xl font-bold leading-[1.1] transition-all duration-500 sm:text-3xl lg:text-[3rem]"
+              className="max-w-3xl text-2xl font-bold leading-[1.1] sm:text-3xl lg:text-[3rem]"
               style={{
                 color: "var(--foreground)",
                 opacity: firstStateOpacity,
@@ -117,7 +117,7 @@ export function HeroSection() {
             </h1>
 
             <p
-              className="absolute inset-0 max-w-2xl text-base leading-8 transition-all duration-500 sm:text-lg"
+              className="absolute inset-0 max-w-2xl text-base leading-8 sm:text-lg"
               style={{
                 color: "var(--foreground-muted)",
                 opacity: secondStateOpacity,
@@ -135,7 +135,7 @@ export function HeroSection() {
 
             {/* Card de perfil */}
             <article
-              className="absolute inset-0 rounded-[28px] p-3 shadow-2xl backdrop-blur-xl transition-all duration-500 flex flex-col"
+              className="absolute inset-0 rounded-[28px] p-3 shadow-2xl backdrop-blur-xl flex flex-col"
               style={{
                 border: "1px solid var(--border)",
                 background: "var(--glass-bg)",
@@ -217,7 +217,7 @@ export function HeroSection() {
 
             {/* Card do projeto em destaque */}
             <article
-              className="absolute inset-0 rounded-[28px] p-3 shadow-2xl backdrop-blur-xl transition-all duration-500 flex flex-col"
+              className="absolute inset-0 rounded-[28px] p-3 shadow-2xl backdrop-blur-xl flex flex-col"
               style={{
                 border: "1px solid var(--border)",
                 background: "var(--glass-bg)",

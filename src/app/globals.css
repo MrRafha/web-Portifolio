@@ -160,7 +160,6 @@ body {
 }
 
 html {
-  scroll-behavior: smooth;
   overflow-x: clip;
   scrollbar-width: none;
   -ms-overflow-style: none;

@@ -104,8 +104,13 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Fecha menu mobile ao clicar em link
-  function handleNavClick() {
+  function handleNavClick(e: React.MouseEvent<HTMLAnchorElement>) {
+    const href = e.currentTarget.getAttribute("href");
+    if (href?.startsWith("#")) {
+      e.preventDefault();
+      const target = document.querySelector(href);
+      if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
     setMobileOpen(false);
   }
 
@@ -164,6 +169,7 @@ export function Navbar() {
                 <a
                   key={item.href}
                   href={item.href}
+                  onClick={handleNavClick}
                   className="relative text-sm transition-colors duration-200 pb-0.5"
                   style={{
                     color: isActive ? "var(--foreground)" : "var(--foreground-muted)",

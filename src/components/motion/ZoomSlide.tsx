@@ -49,12 +49,12 @@ export function ZoomSlide({ children, id }: ZoomSlideProps) {
       let scale: number;
       let opacity: number;
 
-      if (progress < 0.6) {
+      if (progress < 0.5) {
         scale = 1;
         opacity = 1;
       } else {
-        const t = ease((progress - 0.6) / 0.4);
-        scale = 1 + 0.3 * t;
+        const t = ease((progress - 0.5) / 0.5);
+        scale = 1 + 0.18 * t;
         opacity = 1 - t;
       }
 
@@ -85,7 +85,7 @@ export function ZoomSlide({ children, id }: ZoomSlideProps) {
   }, []);
 
   return (
-    <div ref={containerRef} id={id} className="relative h-[200vh]">
+    <div ref={containerRef} id={id} className="relative h-[160vh]">
       <div className="sticky top-0 z-10 min-h-screen overflow-visible bg-[var(--background)]">
         <div
           ref={contentRef}

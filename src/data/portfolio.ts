@@ -4,7 +4,7 @@ export const profile: Profile = {
   name: "Rafhael Hanry",
   role: "Desenvolvedor Frontend",
   headline:
-    "Construo interfaces modernas e produtos web com foco em utilidade real, identidade visual e evolução contínua.",
+    "Interfaces que as pessoas entendem na primeira vez — do design ao deploy.",
   description:
     "Sou estudante de ADS com foco em frontend e experiência de produto. Trabalho principalmente com React, Next.js, TypeScript, Prisma e Postgres, criando soluções para projetos reais, comunidades digitais e aplicações com base sólida para crescer.",
   email: "hanryrafhael@gmail.com",
@@ -13,10 +13,10 @@ export const profile: Profile = {
 };
 
 export const stats: Stat[] = [
-  { label: "Especialidade", value: "Frontend & Produto" },
-  { label: "Base principal", value: "Next.js + TypeScript" },
-  { label: "Banco de dados", value: "Prisma + NeonDB" },
-  { label: "Perfil", value: "Web, Mobile e Bots" },
+  { label: "Em produção", value: "2 projetos" },
+  { label: "Formato", value: "Freela · CLT · PJ" },
+  { label: "Disponibilidade", value: "Imediata" },
+  { label: "Resposta", value: "< 24h" },
 ];
 
 export const projects: Project[] = [
@@ -24,7 +24,7 @@ export const projects: Project[] = [
     title: "Ultimate Tracker",
     category: "Projeto principal",
     description:
-      "Plataforma voltada para organização, rastreamento e suporte a comunidades dentro do universo de Albion Online, com foco em usabilidade, clareza visual e visão de produto escalável.",
+      "Ferramenta gratuita para gestão de comunidades de Albion Online — organização de membros, rastreamento de atividade e suporte contínuo. Construída com Next.js, Prisma e NeonDB, com roadmap ativo e em constante evolução.",
     stack: ["Next.js", "TypeScript", "Prisma", "NeonDB", "Tailwind CSS"],
     highlights: ["Arquitetura modular", "Evolução orientada por roadmap", "Base pronta para escala"],
     gallery: [
@@ -102,10 +102,10 @@ export const projects: Project[] = [
     repo: "https://github.com/MrRafha/Hello-Kitty-Drink-Wather",
   },
   {
-    title: "Bots e ferramentas para comunidade",
+    title: "Automação para Discord",
     category: "Automação",
     description:
-      "Soluções para organização de eventos, controle interno e automações úteis para grupos e servidores, com foco em confiabilidade e praticidade.",
+      "Bots e ferramentas para gestão de eventos, moderação e integrações com APIs externas em servidores Discord, com foco em confiabilidade e operação contínua.",
     stack: ["Python", "Discord", "SQLite", "APIs"],
     highlights: ["Automação útil", "Confiabilidade operacional", "Suporte à comunidade"],
     gallery: [

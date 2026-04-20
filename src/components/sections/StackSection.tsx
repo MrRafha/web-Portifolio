@@ -115,6 +115,24 @@ export function StackSection() {
           </div>
         ))}
       </div>
+
+      {/* CTA de transição para Contato */}
+      <div className="mt-10 flex flex-col items-center gap-3 text-center">
+        <p className="text-sm" style={{ color: "var(--foreground-muted)" }}>
+          Quer trabalhar com essa stack?
+        </p>
+        <a
+          href="#contato"
+          className="rounded-xl px-5 py-2.5 text-sm font-medium transition-all duration-200 hover:scale-[1.02]"
+          style={{
+            border: "1px solid var(--border-accent)",
+            background: "var(--accent-bg)",
+            color: "var(--accent-soft)",
+          }}
+        >
+          Vamos conversar →
+        </a>
+      </div>
     </section>
   );
 }

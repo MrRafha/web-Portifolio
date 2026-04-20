@@ -22,7 +22,7 @@ export function ProjectShowcase({ project, index, isActive, flowProgress, isCaro
   const motionOpacity = isCarousel ? 1 : isActive ? 1 : 0.6;
   const motionScale = isCarousel ? 1 : isActive ? 1 + flowProgress * 0.008 : 0.982;
   const motionY = isCarousel ? 0 : isActive ? 0 : 16;
-  const isMobileProject = project.title === "Hello Kitty Water Reminder";
+  const isMobileProject = project.category?.toLowerCase().includes("mobile") || project.title === "Hello Kitty Water Reminder";
   const objectFit = isMobileProject ? "object-contain" : "object-cover";
 
   // Mouse parallax
@@ -43,14 +43,22 @@ export function ProjectShowcase({ project, index, isActive, flowProgress, isCaro
     el.style.setProperty("--mouse-y", "0");
   }
 
-  // Fechar modal com Escape
+  // Fechar modal com Escape + sinalizar para ZoomSlide/SectionFlowTracker pararem captura
   useEffect(() => {
     function onKeyDown(e: KeyboardEvent) {
       if (e.key === "Escape") setImageModal(false);
     }
     if (imageModal) {
+      document.body.setAttribute("data-modal-open", "1");
+      document.documentElement.style.overflow = "hidden";
       document.addEventListener("keydown", onKeyDown);
-      return () => document.removeEventListener("keydown", onKeyDown);
+      return () => {
+        document.body.removeAttribute("data-modal-open");
+        document.documentElement.style.overflow = "";
+        document.removeEventListener("keydown", onKeyDown);
+      };
+    } else {
+      document.body.removeAttribute("data-modal-open");
     }
   }, [imageModal]);
 
@@ -236,51 +244,29 @@ export function ProjectShowcase({ project, index, isActive, flowProgress, isCaro
               </div>
             </div>
 
+            {/* Imagem com shimmer e fade-in */}
             <div
-              className="rounded-xl p-3"
-              style={{
-                border: "1px solid var(--border-accent)",
-                background: `linear-gradient(135deg, var(--accent-bg), var(--background-elevated))`,
-              }}
+              className={`relative w-full rounded-lg overflow-hidden mb-2 cursor-pointer group ${isMobileProject ? "h-56" : "h-40"}`}
+              style={{ border: "1px solid var(--border)", background: "var(--background)" }}
+              onClick={() => setImageModal(true)}
             >
-              {/* Imagem com shimmer e fade-in */}
-              <div
-                className="relative w-full h-40 rounded-lg overflow-hidden mb-2 cursor-pointer group"
-                style={{ border: "1px solid var(--border)", background: "var(--background)" }}
-                onClick={() => setImageModal(true)}
-              >
-                {!imageLoaded && (
-                  <div className="absolute inset-0 skeleton rounded-lg" />
-                )}
-                <Image
-                  src={currentSlide.image}
-                  alt={currentSlide.title}
-                  fill
-                  className={`${objectFit} transition-all duration-500 group-hover:scale-[1.03]`}
-                  style={{ opacity: imageLoaded ? 1 : 0, transition: "opacity 400ms ease" }}
-                  onLoad={() => setImageLoaded(true)}
-                  priority={false}
-                />
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
-                  <svg className="h-10 w-10 text-white drop-shadow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
-                  </svg>
-                </div>
-              </div>
-
-              <div
-                className="rounded-lg p-3"
-                style={{ border: "1px solid var(--border)", background: "var(--glass-bg-strong)" }}
-              >
-                <p className="text-xs uppercase tracking-[0.18em]" style={{ color: "var(--accent-soft)" }}>
-                  Preview
-                </p>
-                <h4 className="mt-1.5 text-lg font-semibold" style={{ color: "var(--foreground)" }}>
-                  {currentSlide.title}
-                </h4>
-                <p className="mt-1.5 text-xs leading-5" style={{ color: "var(--foreground-muted)" }}>
-                  {currentSlide.caption}
-                </p>
+              {!imageLoaded && (
+                <div className="absolute inset-0 skeleton rounded-lg" />
+              )}
+              <Image
+                src={currentSlide.image}
+                alt={currentSlide.title}
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className={`${objectFit} transition-all duration-500 ${isMobileProject ? "" : "group-hover:scale-[1.03]"}`}
+                style={{ opacity: imageLoaded ? 1 : 0, transition: "opacity 400ms ease" }}
+                onLoad={() => setImageLoaded(true)}
+                priority={false}
+              />
+              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
+                <svg className="h-10 w-10 text-white drop-shadow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+                </svg>
               </div>
             </div>
 
@@ -309,33 +295,20 @@ export function ProjectShowcase({ project, index, isActive, flowProgress, isCaro
           role="dialog"
           aria-modal="true"
           aria-label={`Imagem ampliada: ${currentSlide.title}`}
-          className="fixed inset-0 flex items-center justify-center z-50 p-4"
+          className="fixed inset-0 flex items-center justify-center z-50 p-4 cursor-pointer"
           style={{ background: "rgba(0,0,0,0.85)" }}
           onClick={() => setImageModal(false)}
         >
-          <button
-            type="button"
-            onClick={() => setImageModal(false)}
-            autoFocus
-            className="absolute top-4 right-4 transition-opacity hover:opacity-70"
-            style={{ color: "var(--foreground)" }}
-            aria-label="Fechar imagem ampliada"
-          >
-            <svg className="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
-
           <div
-            className="relative max-w-4xl max-h-[80vh] w-full"
+            className="relative max-w-[92vw] max-h-[90vh] w-full flex items-center justify-center"
             onClick={(e) => e.stopPropagation()}
           >
             <Image
               src={currentSlide.image}
               alt={currentSlide.title}
-              width={1200}
-              height={800}
-              className={`w-full h-auto rounded-lg ${objectFit}`}
+              width={isMobileProject ? 1080 : 1920}
+              height={isMobileProject ? 2400 : 1080}
+              className="rounded-lg object-contain max-w-[92vw] max-h-[90vh] w-auto h-auto"
               priority
             />
           </div>

@@ -20,7 +20,7 @@ export function AboutSection() {
             style={{ border: "2px solid var(--border-accent)" }}
           >
             <Image
-              src="https://github.com/MrRafha.png?size=200"
+              src="https://avatars.githubusercontent.com/MrRafha?size=200"
               alt="Foto de perfil de Rafhael Hanry"
               fill
               className="object-cover"
@@ -99,13 +99,13 @@ export function AboutSection() {
               Sobre
             </p>
             <p
-              className="mt-4 text-[15px] leading-[1.75]"
+              className="mt-4 text-base leading-relaxed"
               style={{ color: "var(--foreground-muted)" }}
             >
               {profile.headline}
             </p>
             <p
-              className="mt-4 text-[15px] leading-[1.75]"
+              className="mt-4 text-base leading-relaxed"
               style={{ color: "var(--foreground-muted)" }}
             >
               {profile.description}

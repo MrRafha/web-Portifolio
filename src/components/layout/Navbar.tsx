@@ -148,7 +148,7 @@ export function Navbar() {
 
         <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-6 py-4 sm:px-8 lg:px-10">
           {/* Logo */}
-          <div>
+          <a href="/" aria-label={`${profile.name} — Início`}>
             <p
               className="text-xs uppercase tracking-[0.28em]"
               style={{ color: "var(--accent-soft)" }}
@@ -158,7 +158,7 @@ export function Navbar() {
             <p className="mt-1 text-base font-semibold" style={{ color: "var(--foreground)" }}>
               {profile.name}
             </p>
-          </div>
+          </a>
 
           {/* Nav desktop */}
           <nav className="hidden items-center gap-6 md:flex">
@@ -198,6 +198,7 @@ export function Navbar() {
               onClick={() => setMobileOpen((v) => !v)}
               aria-label={mobileOpen ? "Fechar menu" : "Abrir menu"}
               aria-expanded={mobileOpen}
+              aria-controls="mobile-menu"
               className="flex flex-col items-center justify-center gap-1.5 rounded-lg p-2 transition-colors md:hidden"
               style={{
                 border: "1px solid var(--border-strong)",
@@ -239,6 +240,7 @@ export function Navbar() {
         >
           <div className="absolute inset-0" style={{ background: "rgba(0,0,0,0.5)" }} />
           <nav
+            id="mobile-menu"
             className="absolute top-[73px] left-0 right-0 p-4"
             style={{
               background: "var(--background-elevated)",

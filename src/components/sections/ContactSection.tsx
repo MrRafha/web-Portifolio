@@ -84,13 +84,12 @@ export function ContactSection() {
           ))}
         </div>
 
-        {/* Rodapé técnico */}
         <div
           className="mt-8 pt-5 flex flex-wrap items-center justify-between gap-2"
           style={{ borderTop: "1px solid var(--border)" }}
         >
           <p className="text-xs" style={{ color: "var(--foreground-subtle)" }}>
-            Portfolio feito com Next.js 14 + Tailwind CSS
+            Disponível para freela · CLT · PJ · Resposta em até 24h
           </p>
           <a
             href={profile.github}

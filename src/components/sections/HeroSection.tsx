@@ -1,90 +1,25 @@
 "use client";
 
 import { profile, projects } from "@/data/portfolio";
-import Image from "next/image";
-import { useEffect, useState } from "react";
-
-function clamp(v: number, min: number, max: number) {
-  return Math.max(min, Math.min(max, v));
-}
-
-function easeOutCubic(t: number) {
-  return 1 - Math.pow(1 - t, 3);
-}
 
 export function HeroSection() {
-  const [progress, setProgress] = useState(0);
   const featuredProject = projects.find((project) => project.featured) ?? projects[0];
-
-  useEffect(() => {
-    let rafId = 0;
-    let lastProgress = -1;
-
-    function applyProgress() {
-      const maxRange = window.innerHeight * 0.25;
-      const raw = clamp(window.scrollY / maxRange, 0, 1);
-
-      let next;
-      if (raw > 0.15) {
-        const adjustedProgress = (raw - 0.15) / 0.85;
-        next = 0.15 + easeOutCubic(adjustedProgress) * 0.85;
-      } else {
-        next = easeOutCubic(raw / 0.15) * 0.15;
-      }
-
-      if (Math.abs(next - lastProgress) > 0.008) {
-        lastProgress = next;
-        setProgress(next);
-      }
-    }
-
-    function onScroll() {
-      cancelAnimationFrame(rafId);
-      rafId = requestAnimationFrame(applyProgress);
-    }
-
-    applyProgress();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
-
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
-      cancelAnimationFrame(rafId);
-    };
-  }, []);
-
-  const firstStateOpacity = 1 - progress;
-  const secondStateOpacity = progress;
-  const scrollIndicatorOpacity = Math.max(0, 1 - progress * 4);
 
   return (
     <section className="relative">
-      {/* Orbs de fundo com parallax em 3 camadas */}
-      <div className="absolute inset-0 -z-10 overflow-hidden">
+      {/* Orbs de fundo estáticos */}
+      <div className="absolute inset-0 -z-10 overflow-hidden" aria-hidden="true">
         <div
           className="absolute left-[-6rem] top-[-4rem] h-72 w-72 rounded-full blur-3xl"
-          style={{
-            background: "var(--accent-glow)",
-            opacity: 0.9,
-            transform: `translateY(${progress * 0.15 * 260}px)`,
-          }}
+          style={{ background: "var(--accent-glow)", opacity: 0.9 }}
         />
         <div
           className="absolute right-[-4rem] top-[4rem] h-80 w-80 rounded-full blur-3xl"
-          style={{
-            background: "var(--accent-glow)",
-            opacity: 0.65,
-            transform: `translateY(${progress * 0.30 * 260}px)`,
-          }}
+          style={{ background: "var(--accent-glow)", opacity: 0.65 }}
         />
         <div
           className="absolute bottom-[-4rem] left-[20%] h-72 w-72 rounded-full blur-3xl"
-          style={{
-            background: "var(--accent-glow)",
-            opacity: 0.55,
-            transform: `translateY(${progress * 0.50 * 260}px)`,
-          }}
+          style={{ background: "var(--accent-glow)", opacity: 0.55 }}
         />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(88,101,242,0.16),transparent_28%),linear-gradient(to_bottom,rgba(255,255,255,0.02),transparent_28%)]" />
       </div>
@@ -101,130 +36,58 @@ export function HeroSection() {
             }}
           >
             <span className="h-2 w-2 rounded-full" style={{ background: "var(--accent-soft)" }} />
-            {profile.role} com foco em produtos
+            Frontend · UI, produto e automação
           </div>
 
-          <div className="relative mt-6 min-h-[8rem] sm:min-h-[9rem] lg:min-h-[10rem]">
-            <h1
-              className="max-w-3xl text-2xl font-bold leading-[1.1] sm:text-3xl lg:text-[3rem]"
-              style={{
-                color: "var(--foreground)",
-                opacity: firstStateOpacity,
-                transform: `translateY(${(progress * -14).toFixed(1)}px)`,
-              }}
-            >
-              Construo interfaces modernas e produtos digitais com foco em utilidade real.
-            </h1>
+          <h1
+            className="mt-6 max-w-3xl text-2xl font-bold leading-[1.1] sm:text-3xl lg:text-[3rem]"
+            style={{ color: "var(--foreground)" }}
+          >
+            {profile.headline}
+          </h1>
 
-            <p
-              className="absolute inset-0 max-w-2xl text-base leading-8 sm:text-lg"
+          <p
+            className="mt-5 max-w-xl text-base leading-relaxed"
+            style={{ color: "var(--foreground-muted)" }}
+          >
+            {profile.description}
+          </p>
+
+          {/* CTAs */}
+          <div className="mt-8 flex flex-wrap gap-3">
+            <a
+              href="#projetos"
+              className="rounded-xl px-5 py-2.5 text-sm font-semibold transition-all duration-200 hover:scale-[1.02]"
               style={{
-                color: "var(--foreground-muted)",
-                opacity: secondStateOpacity,
-                transform: `translateY(${((1 - progress) * 14).toFixed(1)}px)`,
+                background: "var(--accent)",
+                color: "var(--foreground-on-accent)",
               }}
             >
-              {profile.description}
-            </p>
+              Ver projetos
+            </a>
+            <a
+              href="#contato"
+              className="rounded-xl px-5 py-2.5 text-sm font-semibold transition-all duration-200 hover:scale-[1.02]"
+              style={{
+                border: "1px solid var(--border-strong)",
+                background: "var(--background-surface)",
+                color: "var(--foreground-muted)",
+              }}
+            >
+              Entrar em contato
+            </a>
           </div>
         </div>
 
-        {/* Coluna dos cards */}
+        {/* Card do projeto em destaque */}
         <div className="relative lg:pt-2">
           <div className="relative h-[24rem] sm:h-[28rem] md:h-[30rem] max-h-[70vh] sm:max-h-[75vh] lg:max-h-none">
-
-            {/* Card de perfil */}
             <article
               className="absolute inset-0 rounded-[28px] p-3 shadow-2xl backdrop-blur-xl flex flex-col"
               style={{
                 border: "1px solid var(--border)",
                 background: "var(--glass-bg)",
                 boxShadow: "var(--shadow-float)",
-                opacity: secondStateOpacity,
-                transform: `translateY(${(progress * -10).toFixed(1)}px)`,
-                pointerEvents: secondStateOpacity > 0.5 ? "auto" : "none",
-              }}
-            >
-              <div
-                className="mb-2.5 flex items-center justify-between gap-3 pb-2.5"
-                style={{ borderBottom: "1px solid var(--border)" }}
-              >
-                <div>
-                  <p
-                    className="text-xs uppercase tracking-[0.2em]"
-                    style={{ color: "var(--accent-soft)" }}
-                  >
-                    Perfil
-                  </p>
-                  <h3 className="mt-1.5 text-lg font-semibold" style={{ color: "var(--foreground)" }}>
-                    {profile.name}
-                  </h3>
-                </div>
-                <span
-                  className="rounded-full px-3 py-1 text-xs font-medium"
-                  style={{
-                    border: "1px solid var(--border-accent)",
-                    background: "var(--accent-bg)",
-                    color: "var(--accent-soft)",
-                  }}
-                >
-                  GitHub
-                </span>
-              </div>
-
-              <div
-                className="rounded-[24px] p-2.5 flex flex-col h-[calc(100%-90px)] sm:h-[calc(100%-95px)]"
-                style={{ border: "1px solid var(--border)", background: "var(--glass-bg-strong)" }}
-              >
-                <div className="relative w-full flex-1 overflow-hidden rounded-[14px]">
-                  <Image
-                    src="https://github.com/MrRafha.png?size=500"
-                    alt="Foto de perfil do GitHub"
-                    className="h-full w-full rounded-[14px] object-cover"
-                    style={{ transform: `translateY(${progress * -6}px)` }}
-                    width={500}
-                    height={500}
-                    priority
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 40vw"
-                  />
-                </div>
-
-                <div
-                  className="mt-2.5 grid gap-1.5 sm:grid-cols-3 hidden sm:grid"
-                  style={{ transform: `translateY(${progress * -3}px)` }}
-                >
-                  {[
-                    { label: "Área", value: "Frontend & Produto" },
-                    { label: "Stack", value: "React + Next" },
-                    { label: "Especialidade", value: "Interfaces & Chatbots" },
-                  ].map((item) => (
-                    <div
-                      key={item.label}
-                      className="rounded-lg p-2"
-                      style={{ border: "1px solid var(--border)", background: "var(--accent-bg)" }}
-                    >
-                      <p className="text-xs uppercase tracking-wide" style={{ color: "var(--foreground-subtle)" }}>
-                        {item.label}
-                      </p>
-                      <p className="mt-0.5 text-xs font-medium" style={{ color: "var(--foreground)" }}>
-                        {item.value}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </article>
-
-            {/* Card do projeto em destaque */}
-            <article
-              className="absolute inset-0 rounded-[28px] p-3 shadow-2xl backdrop-blur-xl flex flex-col"
-              style={{
-                border: "1px solid var(--border)",
-                background: "var(--glass-bg)",
-                boxShadow: "var(--shadow-float)",
-                opacity: firstStateOpacity,
-                transform: `translateY(${((1 - progress) * 10).toFixed(1)}px)`,
-                pointerEvents: firstStateOpacity > 0.5 ? "auto" : "none",
               }}
             >
               <div
@@ -235,27 +98,44 @@ export function HeroSection() {
                   <p className="text-xs uppercase tracking-[0.2em]" style={{ color: "var(--accent-soft)" }}>
                     Destaque
                   </p>
-                  <h3 className="mt-1.5 text-lg font-semibold" style={{ color: "var(--foreground)" }}>
+                  <h2 className="mt-1.5 text-lg font-semibold" style={{ color: "var(--foreground)" }}>
                     {featuredProject.title}
-                  </h3>
+                  </h2>
                 </div>
-                <span
-                  className="rounded-full px-3 py-1 text-xs font-medium"
-                  style={{
-                    border: "1px solid var(--border-accent)",
-                    background: "var(--accent-bg)",
-                    color: "var(--accent-soft)",
-                  }}
-                >
-                  Em evolução
-                </span>
+                {featuredProject.href ? (
+                  <a
+                    href={featuredProject.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={`Ver ${featuredProject.title} ao vivo`}
+                    className="rounded-full px-3 py-1 text-xs font-medium transition-all duration-200 hover:scale-[1.04]"
+                    style={{
+                      border: "1px solid var(--border-accent)",
+                      background: "var(--accent-bg)",
+                      color: "var(--accent-soft)",
+                    }}
+                  >
+                    Ver ao vivo ↗
+                  </a>
+                ) : (
+                  <span
+                    className="rounded-full px-3 py-1 text-xs font-medium"
+                    style={{
+                      border: "1px solid var(--border-accent)",
+                      background: "var(--accent-bg)",
+                      color: "var(--accent-soft)",
+                    }}
+                  >
+                    Em evolução
+                  </span>
+                )}
               </div>
 
               <div
                 className="rounded-[24px] p-3 flex-1 overflow-y-auto"
                 style={{ border: "1px solid var(--border)", background: "var(--glass-bg-strong)" }}
               >
-                <div className="mb-2.5 flex items-center gap-1.5">
+                <div className="mb-2.5 flex items-center gap-1.5" aria-hidden="true">
                   <span className="h-2.5 w-2.5 rounded-full bg-red-400" />
                   <span className="h-2.5 w-2.5 rounded-full bg-amber-400" />
                   <span className="h-2.5 w-2.5 rounded-full bg-emerald-400" />
@@ -267,7 +147,7 @@ export function HeroSection() {
                     style={{ border: "1px solid var(--border-accent)", background: "var(--background)" }}
                   >
                     <p className="text-xs font-medium" style={{ color: "var(--foreground)" }}>
-                      Visão de produto
+                      Sobre o projeto
                     </p>
                     <p className="mt-1.5 text-xs leading-5" style={{ color: "var(--foreground-muted)" }}>
                       {featuredProject.description}
@@ -279,7 +159,7 @@ export function HeroSection() {
                       className="rounded-xl p-2.5"
                       style={{ border: "1px solid var(--border)", background: "var(--accent-bg)" }}
                     >
-                      <p className="text-xs" style={{ color: "var(--foreground-subtle)" }}>Stack base</p>
+                      <p className="text-xs" style={{ color: "var(--foreground-subtle)" }}>Stack</p>
                       <p className="mt-1 text-xs font-medium" style={{ color: "var(--foreground)" }}>
                         {featuredProject.stack.slice(0, 4).join(", ")}
                       </p>
@@ -288,9 +168,9 @@ export function HeroSection() {
                       className="rounded-xl p-2.5"
                       style={{ border: "1px solid var(--border)", background: "var(--accent-bg)" }}
                     >
-                      <p className="text-xs" style={{ color: "var(--foreground-subtle)" }}>Direção</p>
+                      <p className="text-xs" style={{ color: "var(--foreground-subtle)" }}>Categoria</p>
                       <p className="mt-1 text-xs font-medium" style={{ color: "var(--foreground)" }}>
-                        Utilidade real com identidade forte
+                        {featuredProject.category}
                       </p>
                     </div>
                   </div>
@@ -301,11 +181,10 @@ export function HeroSection() {
         </div>
       </div>
 
-      {/* Scroll indicator — desaparece ao começar a rolar */}
+      {/* Scroll indicator */}
       <div
         aria-hidden="true"
         className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 motion-safe:animate-bounce transition-opacity duration-300"
-        style={{ opacity: scrollIndicatorOpacity }}
       >
         <span className="text-xs uppercase tracking-wider" style={{ color: "var(--foreground-subtle)" }}>
           Scroll

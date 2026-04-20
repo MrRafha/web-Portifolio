@@ -5,6 +5,8 @@ import { useEffect, useRef } from "react";
 interface ZoomSlideProps {
   children: React.ReactNode;
   isFirst?: boolean;
+  isLast?: boolean;
+  noExitAnimation?: boolean;
   id?: string;
 }
 
@@ -13,10 +15,15 @@ function clamp(v: number, lo: number, hi: number) {
 }
 
 function ease(t: number): number {
-  return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  return 1 - Math.pow(1 - t, 3);
 }
 
-export function ZoomSlide({ children, id }: ZoomSlideProps) {
+// Escuta se há modal aberto para suprimir o efeito de zoom/scroll
+function isModalOpen() {
+  return document.querySelector("[data-modal-open]") !== null;
+}
+
+export function ZoomSlide({ children, id, isLast = false, noExitAnimation = false }: ZoomSlideProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
 
@@ -44,22 +51,21 @@ export function ZoomSlide({ children, id }: ZoomSlideProps) {
     }
 
     function update() {
+      if (isModalOpen() || noExitAnimation) return;
+
       const progress = clamp((window.scrollY - startY) / scrollable, 0, 1);
 
-      let scale: number;
-      let opacity: number;
-
       if (progress < 0.5) {
-        scale = 1;
-        opacity = 1;
+        const subtleT = progress / 0.5;
+        content!.style.transform = `translateZ(0) translateY(-${(subtleT * 8).toFixed(2)}px) scale(1)`;
+        content!.style.opacity = "1";
       } else {
         const t = ease((progress - 0.5) / 0.5);
-        scale = 1 + 0.18 * t;
-        opacity = 1 - t;
+        const scale = 1 + 0.06 * t;
+        const opacity = 1 - t;
+        content!.style.transform = `translateZ(0) scale(${scale})`;
+        content!.style.opacity = `${opacity}`;
       }
-
-      content!.style.transform = `translateZ(0) scale(${scale})`;
-      content!.style.opacity = `${opacity}`;
     }
 
     function onScroll() {
@@ -77,19 +83,27 @@ export function ZoomSlide({ children, id }: ZoomSlideProps) {
     window.addEventListener("resize", onResize);
     update();
 
+    const observer = new IntersectionObserver(
+      ([entry]) => { content.style.willChange = entry.isIntersecting ? "transform, opacity" : "auto"; },
+      { rootMargin: "200px" }
+    );
+    observer.observe(container);
+
     return () => {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onResize);
       cancelAnimationFrame(rafId);
+      observer.disconnect();
     };
   }, []);
 
   return (
-    <div ref={containerRef} id={id} className="relative h-[160vh]">
-      <div className="sticky top-0 z-10 min-h-screen overflow-visible bg-[var(--background)]">
+    // Última seção usa h-auto em vez de h-[160vh] para não deixar espaço vazio
+    <div ref={containerRef} id={id} className={isLast ? "relative" : "relative h-[160vh]"}>
+      <div className={`z-10 overflow-visible bg-[var(--background)] ${isLast ? "" : "sticky top-0 min-h-screen"}`}>
         <div
           ref={contentRef}
-          className="min-h-screen flex flex-col justify-center overflow-visible will-change-transform"
+          className="min-h-screen flex flex-col justify-center overflow-visible"
         >
           {children}
         </div>

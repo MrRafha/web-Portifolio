@@ -12,7 +12,9 @@ export function ProjectsSection() {
   function scroll(direction: "left" | "right") {
     const container = containerRef.current;
     if (!container) return;
-    container.scrollBy({ left: direction === "left" ? -500 : 500, behavior: "smooth" });
+    const firstChild = container.children[0] as HTMLElement;
+    const cardWidth = firstChild?.offsetWidth ?? 500;
+    container.scrollBy({ left: direction === "left" ? -cardWidth : cardWidth, behavior: "smooth" });
   }
 
   function scrollToIndex(index: number) {

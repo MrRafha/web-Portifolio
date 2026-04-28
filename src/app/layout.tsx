@@ -28,6 +28,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR">
+      <head>
+        {/* Preload do vídeo hero — desktop. Browser descobre o src só após hydration sem isso. */}
+        <link rel="preload" as="video" href="/hero-swing.mp4" type="video/mp4" media="(min-width: 768px)" />
+        <link rel="preload" as="video" href="/mobile-swing.mp4" type="video/mp4" media="(max-width: 767px)" />
+      </head>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <a
           href="#main-content"
